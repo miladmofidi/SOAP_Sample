@@ -1,0 +1,1028 @@
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://pt.apa.guiaacompanhamento/v2"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="GuiaAcompanhamentoImplService"
+                  targetNamespace="http://pt.apa.guiaacompanhamento/v2">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://pt.apa.guiaacompanhamento/v2" elementFormDefault="unqualified" targetNamespace="http://pt.apa.guiaacompanhamento/v2"
+                   version="1.0">
+            <xs:element name="aceitarGuia" type="tns:aceitarGuia"/>
+            <xs:element name="aceitarGuiaResponse" type="tns:aceitarGuiaResponse"/>
+            <xs:element name="alteraTransportador" type="tns:alteraTransportador"/>
+            <xs:element name="alteraTransportadorResponse" type="tns:alteraTransportadorResponse"/>
+            <xs:element name="anularGuia" type="tns:anularGuia"/>
+            <xs:element name="anularGuiaResponse" type="tns:anularGuiaResponse"/>
+            <xs:element name="associarGuia" type="tns:associarGuia"/>
+            <xs:element name="associarGuiaResponse" type="tns:associarGuiaResponse"/>
+            <xs:element name="autorizarGuia" type="tns:autorizarGuia"/>
+            <xs:element name="autorizarGuiaResponse" type="tns:autorizarGuiaResponse"/>
+            <xs:element name="confirmarCorrecaoGuia" type="tns:confirmarCorrecaoGuia"/>
+            <xs:element name="confirmarCorrecaoGuiaResponse" type="tns:confirmarCorrecaoGuiaResponse"/>
+            <xs:element name="consultaDadosTransportador" type="tns:consultaDadosTransportador"/>
+            <xs:element name="consultaDadosTransportadorResponse" type="tns:consultaDadosTransportadorResponse"/>
+            <xs:element name="consultaEstabelecimentos" type="tns:consultaEstabelecimentos"/>
+            <xs:element name="consultaEstabelecimentosResponse" type="tns:consultaEstabelecimentosResponse"/>
+            <xs:element name="consultaLocaisRecolhaRetoma" type="tns:consultaLocaisRecolhaRetoma"/>
+            <xs:element name="consultaLocaisRecolhaRetomaResponse" type="tns:consultaLocaisRecolhaRetomaResponse"/>
+            <xs:element name="consultarGuiaDetalhe" type="tns:consultarGuiaDetalhe"/>
+            <xs:element name="consultarGuiaDetalheResponse" type="tns:consultarGuiaDetalheResponse"/>
+            <xs:element name="consultarGuias" type="tns:consultarGuias"/>
+            <xs:element name="consultarGuiasResponse" type="tns:consultarGuiasResponse"/>
+            <xs:element name="corrigirGuia" type="tns:corrigirGuia"/>
+            <xs:element name="corrigirGuiaResponse" type="tns:corrigirGuiaResponse"/>
+            <xs:element name="emitirGuia" type="tns:emitirGuia"/>
+            <xs:element name="emitirGuiaResponse" type="tns:emitirGuiaResponse"/>
+            <xs:element name="negarCorrecaoGuia" type="tns:negarCorrecaoGuia"/>
+            <xs:element name="negarCorrecaoGuiaResponse" type="tns:negarCorrecaoGuiaResponse"/>
+            <xs:element name="rejeitarGuia" type="tns:rejeitarGuia"/>
+            <xs:element name="rejeitarGuiaResponse" type="tns:rejeitarGuiaResponse"/>
+            <xs:complexType name="consultarGuias">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:consultarGuiasInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiasInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="interveniente" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codApaEstabelecimento" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codInternoLocalRecolhaRetoma" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codigoEstado" type="xs:string"/>
+                            <xs:element minOccurs="0" name="dataEstado" type="xs:dateTime"/>
+                            <xs:element minOccurs="0" name="pendentesAutorizacao" type="xs:boolean"/>
+                            <xs:element name="paginaPesquisar" type="xs:int"/>
+                            <xs:element minOccurs="0" name="numeroElementos" type="xs:int"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="commonInputSoap">
+                <xs:sequence>
+                    <xs:element name="tokenCertificacao" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiasResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:consultarGuiasOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiasOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="guias" nillable="true" type="tns:guia"/>
+                            <xs:element name="numeroPagina" type="xs:int"/>
+                            <xs:element name="numeroTotal" type="xs:int"/>
+                            <xs:element name="numeroTotalPaginas" type="xs:int"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="commonOutputSoap">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="erroList" nillable="true" type="tns:erro"/>
+                    <xs:element minOccurs="0" name="result" type="tns:resultado"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="guia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="numeroGuia" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoGuia" type="xs:string"/>
+                    <xs:element minOccurs="0" name="url" type="xs:string"/>
+                    <xs:element minOccurs="0" name="remetente" type="tns:remetente"/>
+                    <xs:element minOccurs="0" name="destinatario" type="tns:destinatarioGuia"/>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="transportadores" nillable="true" type="tns:transportador"/>
+                    <xs:element minOccurs="0" name="residuoTransportado" type="tns:residuo"/>
+                    <xs:element minOccurs="0" name="residuoTransportadoCorrigido" type="tns:residuoCorrigido"/>
+                    <xs:element minOccurs="0" name="transporteMateriasPerigosas" type="tns:transporteMateriasPerigosas"/>
+                    <xs:element minOccurs="0" name="tipoProdutor" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoEstado" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoEstado" type="xs:string"/>
+                    <xs:element minOccurs="0" name="dataEstado" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="comentarioDestinatario" type="xs:string"/>
+                    <xs:element minOccurs="0" name="comentarioRemetente" type="xs:string"/>
+                    <xs:element minOccurs="0" name="comentarioEstado" type="xs:string"/>
+                    <xs:element name="pendenteAutorizacao" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="dataFimTransporte" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="nifIntervinienteCriacao" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="remetente">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
+                    <xs:element minOccurs="0" name="estabelecimento" type="tns:estabelecimento"/>
+                    <xs:element minOccurs="0" name="localRecolhaRetoma" type="tns:localRecolhaRetoma"/>
+                    <xs:element minOccurs="0" name="localidade" type="xs:string"/>
+                    <xs:element minOccurs="0" name="morada" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                    <xs:element minOccurs="0" name="tipoRemetente" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="estabelecimento">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigoAPA" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nomeEstabelecimento" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="localRecolhaRetoma">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigoInterno" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricao" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="destinatarioGuia">
+                <xs:complexContent>
+                    <xs:extension base="tns:remetente">
+                        <xs:sequence/>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="transportador">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="dataHoraInicioTransporte" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="dataValidade" type="xs:dateTime"/>
+                    <xs:element minOccurs="0" name="matricula" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="residuo">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="designacao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoResiduoLer" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoOperacao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="quantidade" type="xs:double"/>
+                    <xs:element minOccurs="0" name="codigoGrupo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoGrupo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoResiduo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoOperacao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numPgl" type="xs:string"/>
+                    <xs:element minOccurs="0" name="matricula" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="residuoCorrigido">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigoGrupoCorrigido" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoOperacaoCorrigido" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoResiduoLerCorrigido" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoGrupo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoOperacao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricaoResiduo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numPglCorrigido" type="xs:string"/>
+                    <xs:element minOccurs="0" name="quantidadeCorrigido" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="transporteMateriasPerigosas">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="categoria" type="xs:string"/>
+                    <xs:element minOccurs="0" name="classe" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoEtiqueta" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoRestricaoTuneis" type="xs:string"/>
+                    <xs:element minOccurs="0" name="grupoEmbalagem" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numeroOnu" type="xs:string"/>
+                    <xs:element minOccurs="0" name="observacoesDois" type="xs:string"/>
+                    <xs:element minOccurs="0" name="observacoesUm" type="xs:string"/>
+                    <xs:element minOccurs="0" name="volumes" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="erro">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descErro" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="resultado">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descResultado" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="negarCorrecaoGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:negarCorrecaoGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="negarCorrecaoGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element minOccurs="0" name="comentarioRemetente" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="identificadorGuia">
+                <xs:sequence>
+                    <xs:element name="numeroGuia" type="xs:string"/>
+                    <xs:element name="codigoVerificacao" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="negarCorrecaoGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:negarCorrecaoGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="negarCorrecaoGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="confirmarCorrecaoGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:confirmarCorrecaoGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="confirmarCorrecaoGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="confirmarCorrecaoGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:confirmarCorrecaoGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="confirmarCorrecaoGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="alteraTransportador">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:alteraTransportadorInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="alteraTransportadorInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element name="transportadorAlteradoInput" type="tns:transportadorAlteradoInput"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="transportadorAlteradoInput">
+                <xs:sequence>
+                    <xs:element name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="matricula" type="xs:string"/>
+                    <xs:element name="dataHoraInicioTransporte" type="xs:dateTime"/>
+                    <xs:element name="numeroOrdem" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="alteraTransportadorResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:alteraTransportadorOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="alteraTransportadorOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiaDetalhe">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:consultarGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiaDetalheResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:consultarGuiaDetalheOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultarGuiaDetalheOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="corrigirGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:corrigirGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="corrigirGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element name="dadosCorrigidos" type="tns:dadosCorrigidos"/>
+                            <xs:element name="dataHoraFimTransporte" type="xs:dateTime"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="dadosCorrigidos">
+                <xs:sequence>
+                    <xs:element name="codigoResiduoLer" type="xs:string"/>
+                    <xs:element name="codigoOperacao" type="xs:string"/>
+                    <xs:element name="quantidade" type="xs:double"/>
+                    <xs:element minOccurs="0" name="codigoGrupo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numPgl" type="xs:string"/>
+                    <xs:element minOccurs="0" name="comentarioDestinatario" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="corrigirGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:corrigirGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="corrigirGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaLocaisRecolhaRetoma">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:consultaLocaisRecolhaRetomaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaLocaisRecolhaRetomaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nif" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codigoInterno" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codigoAPA" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaLocaisRecolhaRetomaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:consultaLocaisRecolhaRetomaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaLocaisRecolhaRetomaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="locaisRecolhaRetoma" nillable="true" type="tns:localRecolhaRetomaGuia"/>
+                            <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                            <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="localRecolhaRetomaGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="codigoAPA" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoFluxo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoInterno" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoTipoPonto" type="xs:string"/>
+                    <xs:element minOccurs="0" name="descricao" type="xs:string"/>
+                    <xs:element minOccurs="0" name="estado" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="latitude" type="xs:decimal"/>
+                    <xs:element minOccurs="0" name="localidade" type="xs:string"/>
+                    <xs:element minOccurs="0" name="longitude" type="xs:decimal"/>
+                    <xs:element minOccurs="0" name="morada" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="autorizarGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:autorizarGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="autorizarGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="autorizarGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:autorizarGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="autorizarGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="emitirGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:emitirGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="emitirGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="guia" type="tns:guiaInput"/>
+                            <xs:element name="tipoInterveniente" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="guiaInput">
+                <xs:sequence>
+                    <xs:element name="remetente" type="tns:remetenteInput"/>
+                    <xs:element name="destinatario" type="tns:destinatarioGuiaInput"/>
+                    <xs:element maxOccurs="unbounded" name="transportadores" type="tns:transportadorInput"/>
+                    <xs:element name="residuoTransportado" type="tns:residuoInput"/>
+                    <xs:element minOccurs="0" name="transporteMateriasPerigosas" type="tns:transporteMateriasPerigosasInput"/>
+                    <xs:element minOccurs="0" name="tipoProdutor" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="remetenteInput">
+                <xs:sequence>
+                    <xs:element name="nif" type="xs:string"/>
+                    <xs:element name="tipoRemetente" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoApaEstabelecimento" type="xs:string"/>
+                    <xs:element minOccurs="0" name="morada" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoPostal" type="xs:string"/>
+                    <xs:element minOccurs="0" name="localidade" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoLocal" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="destinatarioGuiaInput">
+                <xs:sequence>
+                    <xs:element name="nif" type="xs:string"/>
+                    <xs:element name="codigoApa" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="transportadorInput">
+                <xs:sequence>
+                    <xs:element name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="matricula" type="xs:string"/>
+                    <xs:element name="dataHoraInicioTransporte" type="xs:dateTime"/>
+                    <xs:element name="numeroOrdem" type="xs:int"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="residuoInput">
+                <xs:sequence>
+                    <xs:element name="designacao" type="xs:string"/>
+                    <xs:element name="codigoResiduoLer" type="xs:string"/>
+                    <xs:element name="codigoOperacao" type="xs:string"/>
+                    <xs:element name="quantidade" type="xs:double"/>
+                    <xs:element minOccurs="0" name="codigoGrupo" type="xs:string"/>
+                    <xs:element minOccurs="0" name="numPgl" type="xs:string"/>
+                    <xs:element minOccurs="0" name="matricula" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="transporteMateriasPerigosasInput">
+                <xs:sequence>
+                    <xs:element name="numeroOnu" type="xs:string"/>
+                    <xs:element name="grupoEmbalagem" type="xs:string"/>
+                    <xs:element minOccurs="0" name="observacoesUm" type="xs:string"/>
+                    <xs:element minOccurs="0" name="observacoesDois" type="xs:string"/>
+                    <xs:element minOccurs="0" name="volumes" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="emitirGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:emitirGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="emitirGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaDadosTransportador">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:consultaDadosTransportadorInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaDadosTransportadorInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nif" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaDadosTransportadorResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:consultaDadosTransportadorOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaDadosTransportadorOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="transportador" type="tns:transportadorPesquisa"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="transportadorPesquisa">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="associarGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:associarGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="associarGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element name="numeroGuiaAssociada" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="associarGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:associarGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="associarGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="anularGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:anularGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="anularGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element minOccurs="0" name="observacoes" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="anularGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:anularGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="anularGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaEstabelecimentos">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:consultaEstabelecimentosInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaEstabelecimentosInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nif" type="xs:string"/>
+                            <xs:element minOccurs="0" name="codigoAPA" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="consultaEstabelecimentosResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:consultaEstabelecimentosOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="consultaEstabelecimentosOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="estabelecimentos" nillable="true" type="tns:estabelecimentoGuia"/>
+                            <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                            <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="estabelecimentoGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="autorizaEmissao" type="xs:boolean"/>
+                    <xs:element minOccurs="0" name="codPostalSede" type="xs:string"/>
+                    <xs:element minOccurs="0" name="codigoApa" type="xs:string"/>
+                    <xs:element minOccurs="0" name="localidadeSede" type="xs:string"/>
+                    <xs:element minOccurs="0" name="moradaSede" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nif" type="xs:string"/>
+                    <xs:element minOccurs="0" name="nome" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="aceitarGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:aceitarGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="aceitarGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element name="dataHoraFimTransporte" type="xs:dateTime"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="aceitarGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:aceitarGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="aceitarGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="rejeitarGuia">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="arg0" type="tns:rejeitarGuiaInput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="rejeitarGuiaInput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonInputSoap">
+                        <xs:sequence>
+                            <xs:element name="nifInterveniente" type="xs:string"/>
+                            <xs:element name="idGuia" type="tns:identificadorGuia"/>
+                            <xs:element minOccurs="0" name="comentarioDestinatario" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="rejeitarGuiaResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="return" type="tns:rejeitarGuiaOutput"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="rejeitarGuiaOutput">
+                <xs:complexContent>
+                    <xs:extension base="tns:commonOutputSoap">
+                        <xs:sequence>
+                            <xs:element minOccurs="0" name="guia" type="tns:guia"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="anularGuiaResponse">
+        <wsdl:part element="tns:anularGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="negarCorrecaoGuiaResponse">
+        <wsdl:part element="tns:negarCorrecaoGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="confirmarCorrecaoGuia">
+        <wsdl:part element="tns:confirmarCorrecaoGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="alteraTransportador">
+        <wsdl:part element="tns:alteraTransportador" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="autorizarGuiaResponse">
+        <wsdl:part element="tns:autorizarGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaEstabelecimentosResponse">
+        <wsdl:part element="tns:consultaEstabelecimentosResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="autorizarGuia">
+        <wsdl:part element="tns:autorizarGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaLocaisRecolhaRetomaResponse">
+        <wsdl:part element="tns:consultaLocaisRecolhaRetomaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="associarGuia">
+        <wsdl:part element="tns:associarGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="aceitarGuiaResponse">
+        <wsdl:part element="tns:aceitarGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="anularGuia">
+        <wsdl:part element="tns:anularGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="aceitarGuia">
+        <wsdl:part element="tns:aceitarGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaDadosTransportadorResponse">
+        <wsdl:part element="tns:consultaDadosTransportadorResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="rejeitarGuia">
+        <wsdl:part element="tns:rejeitarGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="alteraTransportadorResponse">
+        <wsdl:part element="tns:alteraTransportadorResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="associarGuiaResponse">
+        <wsdl:part element="tns:associarGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="rejeitarGuiaResponse">
+        <wsdl:part element="tns:rejeitarGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarGuias">
+        <wsdl:part element="tns:consultarGuias" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="negarCorrecaoGuia">
+        <wsdl:part element="tns:negarCorrecaoGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarGuiaDetalheResponse">
+        <wsdl:part element="tns:consultarGuiaDetalheResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="corrigirGuiaResponse">
+        <wsdl:part element="tns:corrigirGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="emitirGuiaResponse">
+        <wsdl:part element="tns:emitirGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarGuiaDetalhe">
+        <wsdl:part element="tns:consultarGuiaDetalhe" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultarGuiasResponse">
+        <wsdl:part element="tns:consultarGuiasResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="corrigirGuia">
+        <wsdl:part element="tns:corrigirGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaLocaisRecolhaRetoma">
+        <wsdl:part element="tns:consultaLocaisRecolhaRetoma" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="emitirGuia">
+        <wsdl:part element="tns:emitirGuia" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaDadosTransportador">
+        <wsdl:part element="tns:consultaDadosTransportador" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="confirmarCorrecaoGuiaResponse">
+        <wsdl:part element="tns:confirmarCorrecaoGuiaResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="consultaEstabelecimentos">
+        <wsdl:part element="tns:consultaEstabelecimentos" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="GuiaAcompanhamentoWs">
+        <wsdl:operation name="consultarGuias">
+            <wsdl:input message="tns:consultarGuias" name="consultarGuias"></wsdl:input>
+            <wsdl:output message="tns:consultarGuiasResponse" name="consultarGuiasResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="negarCorrecaoGuia">
+            <wsdl:input message="tns:negarCorrecaoGuia" name="negarCorrecaoGuia"></wsdl:input>
+            <wsdl:output message="tns:negarCorrecaoGuiaResponse" name="negarCorrecaoGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="confirmarCorrecaoGuia">
+            <wsdl:input message="tns:confirmarCorrecaoGuia" name="confirmarCorrecaoGuia"></wsdl:input>
+            <wsdl:output message="tns:confirmarCorrecaoGuiaResponse" name="confirmarCorrecaoGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="alteraTransportador">
+            <wsdl:input message="tns:alteraTransportador" name="alteraTransportador"></wsdl:input>
+            <wsdl:output message="tns:alteraTransportadorResponse" name="alteraTransportadorResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultarGuiaDetalhe">
+            <wsdl:input message="tns:consultarGuiaDetalhe" name="consultarGuiaDetalhe"></wsdl:input>
+            <wsdl:output message="tns:consultarGuiaDetalheResponse" name="consultarGuiaDetalheResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="corrigirGuia">
+            <wsdl:input message="tns:corrigirGuia" name="corrigirGuia"></wsdl:input>
+            <wsdl:output message="tns:corrigirGuiaResponse" name="corrigirGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaLocaisRecolhaRetoma">
+            <wsdl:input message="tns:consultaLocaisRecolhaRetoma" name="consultaLocaisRecolhaRetoma"></wsdl:input>
+            <wsdl:output message="tns:consultaLocaisRecolhaRetomaResponse" name="consultaLocaisRecolhaRetomaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="autorizarGuia">
+            <wsdl:input message="tns:autorizarGuia" name="autorizarGuia"></wsdl:input>
+            <wsdl:output message="tns:autorizarGuiaResponse" name="autorizarGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="emitirGuia">
+            <wsdl:input message="tns:emitirGuia" name="emitirGuia"></wsdl:input>
+            <wsdl:output message="tns:emitirGuiaResponse" name="emitirGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaDadosTransportador">
+            <wsdl:input message="tns:consultaDadosTransportador" name="consultaDadosTransportador"></wsdl:input>
+            <wsdl:output message="tns:consultaDadosTransportadorResponse" name="consultaDadosTransportadorResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="associarGuia">
+            <wsdl:input message="tns:associarGuia" name="associarGuia"></wsdl:input>
+            <wsdl:output message="tns:associarGuiaResponse" name="associarGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="anularGuia">
+            <wsdl:input message="tns:anularGuia" name="anularGuia"></wsdl:input>
+            <wsdl:output message="tns:anularGuiaResponse" name="anularGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaEstabelecimentos">
+            <wsdl:input message="tns:consultaEstabelecimentos" name="consultaEstabelecimentos"></wsdl:input>
+            <wsdl:output message="tns:consultaEstabelecimentosResponse" name="consultaEstabelecimentosResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="aceitarGuia">
+            <wsdl:input message="tns:aceitarGuia" name="aceitarGuia"></wsdl:input>
+            <wsdl:output message="tns:aceitarGuiaResponse" name="aceitarGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="rejeitarGuia">
+            <wsdl:input message="tns:rejeitarGuia" name="rejeitarGuia"></wsdl:input>
+            <wsdl:output message="tns:rejeitarGuiaResponse" name="rejeitarGuiaResponse"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="GuiaAcompanhamentoImplServiceSoapBinding" type="tns:GuiaAcompanhamentoWs">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="negarCorrecaoGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="negarCorrecaoGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="negarCorrecaoGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultarGuias">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultarGuias">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultarGuiasResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="confirmarCorrecaoGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="confirmarCorrecaoGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="confirmarCorrecaoGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="alteraTransportador">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="alteraTransportador">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="alteraTransportadorResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultarGuiaDetalhe">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultarGuiaDetalhe">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultarGuiaDetalheResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="corrigirGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="corrigirGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="corrigirGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaLocaisRecolhaRetoma">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultaLocaisRecolhaRetoma">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultaLocaisRecolhaRetomaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="autorizarGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="autorizarGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="autorizarGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="emitirGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="emitirGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="emitirGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaDadosTransportador">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultaDadosTransportador">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultaDadosTransportadorResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="associarGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="associarGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="associarGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="anularGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="anularGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="anularGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="consultaEstabelecimentos">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="consultaEstabelecimentos">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="consultaEstabelecimentosResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="aceitarGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="aceitarGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="aceitarGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="rejeitarGuia">
+            <soap:operation soapAction="" style="document"/>
+            <wsdl:input name="rejeitarGuia">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="rejeitarGuiaResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="GuiaAcompanhamentoImplService">
+        <wsdl:port binding="tns:GuiaAcompanhamentoImplServiceSoapBinding" name="GuiaAcompanhamentoWsPort">
+            <soap:address location="https://qualsiliamb.apambiente.pt/services/egar/GuiaAcompanhamentoWs/v2"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
