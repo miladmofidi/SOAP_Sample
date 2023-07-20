@@ -1,5 +1,5 @@
-# SOAP_Sample
-Sample for implementing two SOAP web services:  
+# SOAP Sample In Java
+Sample for implementing two SOAP web services with two methods:  
 1-Calculator Webservice  
 2-BLZ Webservice
 
